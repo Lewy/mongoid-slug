@@ -64,7 +64,7 @@ module Mongoid::Slug
   end
 
   def generate_slug
-    if new_record? || slugged_fields_changed?
+    if new_record? || slugged_fields_changed? || self.send(slug_name).nil?
       self.send("#{slug_name}=", find_unique_slug)
     end
   end
