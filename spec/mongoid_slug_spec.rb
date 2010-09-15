@@ -14,6 +14,12 @@ describe Mongoid::Slug do
       @book.to_param.should eql @book.title.parameterize
     end
 
+    it "generates slug when slug is nil" do
+      @book.slug = nil
+      @book.save
+      @book.to_param.should eql @book.title.parameterize
+    end
+
     it "updates slug" do
       @book.update_attributes(:title => "Anti Oedipus")
       @book.to_param.should eql "Anti Oedipus".parameterize

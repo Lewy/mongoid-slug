@@ -18,7 +18,7 @@ module Mongoid::Slug
       if slug_scoped
         index slug_name
       else
-        index slug_name, :unique => true
+        index slug_name#, :unique => true
       end
       before_save :generate_slug
     end
@@ -64,7 +64,7 @@ module Mongoid::Slug
   end
 
   def generate_slug
-    if new_record? || slugged_fields_changed?
+    if new_record? || slugged_fields_changed? || self.send(slug_name).nil?
       self.send("#{slug_name}=", find_unique_slug)
     end
   end
